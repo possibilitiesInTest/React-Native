@@ -11,43 +11,38 @@ import { Context } from "../context/BlogContext";
 import { Feather } from "@expo/vector-icons";
 
 const IndexScreen = ({ navigation }) => {
-  console.log(props);
   const { state, deleteBlogPost } = useContext(Context);
 
   return (
-    <TouchableOpacity
-      onPress={(() => navigation.navigate("Show"), { id: item.id })}
-    >
-      <View>
-        <Text>Index Screen</Text>
-        <FlatList
-          data={state}
-          keyExtractor={blogPost => blogPost.title}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                {" "}
-                style={styles.row}
+    <View>
+      <FlatList
+        data={state}
+        keyExtractor={blogPost => blogPost.title}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Show", { id: item.id })}
+            >
+              <View style={styles.row}>
                 <Text style={styles.title}>
-                  {item.title} = {item.id}
+                  {item.title} - {item.id}
                 </Text>
                 <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                   <Feather style={styles.icon} name="trash" />
                 </TouchableOpacity>
               </View>
-            );
-          }}
-        />
-      </View>
-    </TouchableOpacity>
+            </TouchableOpacity>
+          );
+        }}
+      />
+    </View>
   );
 };
-
 IndexScreen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: (
       <TouchableOpacity onPress={() => navigation.navigate("Create")}>
-        <Feather name="plus" size={30} marignRight={10} />
+        <Feather name="plus" size={30} />
       </TouchableOpacity>
     )
   };
@@ -56,7 +51,7 @@ IndexScreen.navigationOptions = ({ navigation }) => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    justifyContext: "space-between",
+    justifyContent: "space-between",
     paddingVertical: 20,
     paddingHorizontal: 10,
     borderTopWidth: 1,
