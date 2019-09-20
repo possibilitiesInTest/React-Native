@@ -4,6 +4,11 @@
       "id": 1,
       "title": "API POST",
       "content": "content for my post"
+    },
+    {
+      "title": "Second post",
+      "content": "It works!!!",
+      "id": 2
     }
   ]
 }

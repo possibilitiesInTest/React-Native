@@ -10,8 +10,10 @@ const blogReducer = (state, action) => {
       return state.map(blogPost => {
         return blogPost.id === action.payload.id ? action.payload : blogPost;
       });
+
     case "delete_blogPost":
       return state.filter(blogPost => blogPost.id !== action.payload);
+
     case "add_blogPost":
       return [
         ...state,
@@ -21,6 +23,7 @@ const blogReducer = (state, action) => {
           content: action.payload.content
         }
       ];
+
     default:
       return state;
   }
@@ -35,11 +38,14 @@ const getBlogPosts = dispatch => {
 };
 
 const addBlogPost = dispatch => {
-  return (title, content, callback) => {
-    dispatch({
-      type: "add_blogPost",
-      payload: { title: title, content: content }
-    });
+  return async (title, content, callback) => {
+    await jsonServer.post("/blogposts", { title, content });
+
+    // dispatch({
+    //   type: "add_blogPost",
+    //   payload: { title: title, content: content }
+    // });
+
     if (callback) {
       callback();
     }
