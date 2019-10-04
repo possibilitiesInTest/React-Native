@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheeet, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 const TrackCreateScreen = () => {
   return <Text style={{ fontSize: 48 }}>TrackCreateScreen</Text>;
